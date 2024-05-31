@@ -25,7 +25,7 @@ boxes = np.zeros((8,8,4),dtype=int)    # contains top-left and bottom-right poin
 fen_line = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR' # fen line of chess board
 board = chess.Board(fen=fen_line) # object of chess board
 dir_path = os.path.dirname(os.path.realpath(__file__))+"/numpy_saved" # path of current directory
-
+video_url = 'http://192.168.1.135:4747/video'
 # device = cv2.VideoCapture(1) # set devidce for read image (1: for tacking input from usb-webcam)
 img_resize = (800,800) # set o/p image size
 image = []
@@ -268,15 +268,17 @@ def set_legal_positions(game_image,board,boxes):
 ###################################################################################
 ## camara position calibration
 ###################################################################################
-
+# video_url = 'http://192.168.1.135:4747/video'
+video_url = 'http://10.13.0.63:4747/video' #ta3 fac
 while True:
     print("Do you want to set camara Position[y/n] : ",end=" ")
     answer = str(input())
+    
     if answer == "y" or answer == "Y":
         print("Press q for exit : ")
         while True:
             ## show frame from camera and set positon by moving camera
-            flag , img = cv2.VideoCapture('http://192.168.43.1:4812/video').read()
+            flag , img = cv2.VideoCapture(video_url).read()
             img = cv2.resize(img,img_resize)
             if flag:
                 cv2.imshow("Set camera position",img)
@@ -465,6 +467,8 @@ while 1:
         
         # cv2.imshow("Game",draw_img)
         show_game(draw_img,board,last_move)
+                    cv2.waitKey(0)
+            cv2.destroyAllWindows()
         # cv2.waitKey(0)
         # print("player :",chess_board[box_1_cordinate[0]][box_1_cordinate[1]],"\nmoves from : ",position1,"\nmoves to : ",position2)
         

@@ -11,7 +11,8 @@ img = 0
 def draw_circle(event,x,y,flags,param):
     global ix,iy
     if event == cv2.EVENT_LBUTTONDBLCLK:
-        cv2.circle(img,(x,y),2,(255,0,0),-1)
+        cv2.circle(img,(x,y),5,(255,0,0),-1)
+        print((x,y))
         ix,iy = x,y
 
 def get_points(image,numOfPoints):
@@ -27,7 +28,8 @@ def get_points(image,numOfPoints):
         cv2.imshow("image",img)
         k = cv2.waitKey(1)
         if k == ord('a'):
+            print("Point added! : ",[int(ix),int(iy)])
             points.append([int(ix),int(iy)])
-            cv2.circle(img,(ix,iy),3,(0,0,255),-1)
+            cv2.circle(img,(ix,iy),10,(0,0,255),-1)
     cv2.destroyAllWindows()
     return list(points)
